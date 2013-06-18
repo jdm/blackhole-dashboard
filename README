@@ -1,0 +1,3 @@
+python -m CGIHTTPServer
+
+locahost:8000/dashboard.html
