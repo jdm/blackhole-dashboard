@@ -145,7 +145,15 @@ function fetchUntil(query, limiter, update, finished, error) {
   fetchPage(0);
 }
 
+function resetButton() {
+  var button = document.getElementById('fetcher');
+  button.disabled = false;
+}
+
 function fetch(email) {
+  var button = document.getElementById('fetcher');
+  button.disabled = true;
+
   var dashboard = document.getElementById('dashboard');
   dashboard.removeChild(dashboard.firstChild);
   var t = document.createElement('table');
@@ -172,14 +180,17 @@ function fetch(email) {
                  t.appendChild(r);
                }*/
                allItems = allItems.concat(items);
+               display(allItems);
              },
              function onfinish() {
-              display(allItems);
+               display(allItems);
                console.log("Finished fetch.");
+               resetButton();
              },
              function onerror() {
                console.log("unknown error");
-             });  
+               resetButton();
+             });
 }
 
 /*function fetch(email) {
