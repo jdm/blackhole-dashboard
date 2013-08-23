@@ -148,11 +148,13 @@ function fetchUntil(query, limiter, update, finished, error) {
 function resetButton() {
   var button = document.getElementById('fetcher');
   button.disabled = false;
+  document.getElementById('spinner').style.visibility = 'hidden';
 }
 
 function fetch(email) {
   var button = document.getElementById('fetcher');
   button.disabled = true;
+  document.getElementById('spinner').style.visibility = 'visible';
 
   var dashboard = document.getElementById('dashboard');
   dashboard.removeChild(dashboard.firstChild);

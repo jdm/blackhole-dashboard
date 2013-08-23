@@ -84,3 +84,7 @@ a:hover {
   font-size: 12px;
   color: #999;
 }
+
+#spinner {
+  visibility: hidden;
+}
