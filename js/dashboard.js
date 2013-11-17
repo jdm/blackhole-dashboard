@@ -92,10 +92,6 @@ function display(data, title) {
       + "H" + (w0 + 1) * z + "Z";
 }*/
 
-
-//var API_HOST = "http://tranquil-plateau-4519.herokuapp.com/";
-var API_HOST = "cgi-bin/query.cgi?url=";
-
 var icons = {
   'bugzilla': 'bugzilla.gif',
   'hg': 'hg.png'
@@ -117,34 +113,6 @@ function nice_description(item) {
   }
 }
 
-function fetchUntil(query, limiter, update, finished, error) {
-  var count = 0;
-
-  function fetchPage(page) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-      var items = xhr.response["_items"];
-      count += items.length;
-      update(items);
-      if ('next' in xhr.response._links && limiter(count, items)) {
-        fetchPage(page + 1);
-      } else {
-        finished();
-      }
-    };
-    xhr.onerror = function() {
-      if (error) {
-        error();
-      }
-    };
-    xhr.open("get", API_HOST + encodeURIComponent(query + "&page=" + page), true);
-    xhr.responseType = 'json';
-    xhr.send();
-  }
-
-  fetchPage(0);
-}
-
 function resetButton() {
   var button = document.getElementById('fetcher');
   button.disabled = false;
@@ -162,10 +130,7 @@ function fetch(email) {
   dashboard.appendChild(t);
 
   var allItems = [];
-  fetchUntil("contributions/?max_results=50&where=email=='" + email + "'",
-             function shouldTerminate(count, items) {
-               return true;
-             },
+  fetchAll("contributions/?max_results=50&where=email=='" + email + "'",
              function onupdate(items) {/*
                for (var i = 0; i < items.length; i++) {
                  var r = document.createElement('tr');
