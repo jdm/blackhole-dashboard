@@ -11,7 +11,7 @@ var day = d3.time.format("%w"),
     formatPercent = d3.format("+.1%");
 
 var svg = d3.select("#body").selectAll(".year")
-    .data(d3.range(1999, 2014))
+    .data(d3.range(1999, (new Date).getFullYear() + 1))
   .enter().append("div")
     .attr("class", "year")
     .style("width", w + m[1] + m[3] + "px")
